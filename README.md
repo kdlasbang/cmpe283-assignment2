@@ -1,24 +1,42 @@
 # cmpe283-assignment2
 
+##Member-> just myself
+
 ## Build the kernal
-### (at ./linux)make menuconfig
-#### update config->
-### sudo bash (into root mode)
-### uname -a 
-#### (then copy the config)
-### cp /boot/config-5.4.0-70-generic ./.config
-### make oldconfig (press all enter)
-### vi .config
-#### find the instruction-> 
-### CONFIG_SYSTEM_TRUSTED_KEY, then comment it. Otherwise, there is a error in build the kernal
-#### build the kernal with this command->
-### make -j 3 modules && make -j 3 && sudo make modules_install && sudo make install (3 cpu)
+#### 1.(at ./linux)make menuconfig
+### update config->
+#### 2.sudo bash (into root mode)
+#### 3.uname -a 
+### (then copy the config)
+#### 4.cp /boot/config-5.4.0-70-generic ./.config
+#### 5.make oldconfig (press all enter)
+#### 6.vi .config
+### find the instruction-> 
+#### 7.CONFIG_SYSTEM_TRUSTED_KEY, then comment it. Otherwise, there is a error in build the kernal
+### build the kernal with this command->
+#### 8.make -j 3 modules && make -j 3 && sudo make modules_install && sudo make install (3 cpu)(approximately need to wait 3 hrs)
 
 ## Change to source code->
-#### for CPUID %eax==0x4FFFFFFF
-####  return total number of exits in %eax
-####  return high 32bits of total time spent in exit of %ebx
-####  return high 32 bits of total time spent in exit in %ecx
-#### cd linux/arch/x86/kvm
-#### vi cpuid.c 
-#### at the end: if(eax== 0x4fffffff){}  else
+#### 1.vi linux/arch/x86/kvm/cpuid.c
+####     Initial exit_counters and exit_time at the top. Then in the function kvm_emulate_cpuid()->
+####  if(eax == 0x4FFFFFFF) then return total number of exits in %eax, high 32bits of total time spent in exit of %ebx, high 32 bits of total time spent in exit in %ecx.
+#### 2. vi linux/arch/x86/kvm/vmx/vmx.c
+####   Initialize exit_counters and exit_time. Then find the function -> vmx_handle_exit()
+####     count the time for each exit execute
+#### 3. rebuild again, just view the Build the kernal steps above
+
+## Install nested VM
+#### 1. cat /sys/module/kvm_intel/parameters/nested
+#### 2. sudo apt install libvirt-clients libvirt-daemon-system ovmf virt-manager qemu-system-x86
+#### 3. setup nested VM and Ubuntu 20.0.4 ISO
+#### 4. sudo apt-get install cpuid
+
+## Test file
+#### 1. test in command line -> cpuid -l 0x4FFFFFFF
+#### or 2. test by test file
+
+## Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there more exits performed during certain VM operations? Approximately how many exits does a full VM boot entail?
+
+## 1.Yes, the number of exits increase in stable rate.
+## 2. Approximately 1500000 exits for a full VM boot entail.
+
