@@ -36,22 +36,22 @@
 #### 4. Installed the virt-manager-> sudo apt-get install virt-manager
 #### 5. To check whether install successfully -> virt-manager
 #### 6. Go to ubuntu official website, download ISO, then use virt-manager to open ISO and install it.
-(https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6042.jpg)
+![](https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6042.jpg )
 #### 7. Open nested VM terminal -> sudo apt-get install cpuid
 #### 8. -> sudo apt-get install make
 
 ## Test file (inside nested VM)
 #### 1. In command line, view the exit register -> cpuid -l 0x4FFFFFFF
-(https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6039.jpg)
+![](https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6039.jpg)
 #### 2. View exit counter and time -> gcc test.c    -> ./a.out
-(https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6041.jpg)
+![](https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6041.jpg)
 
 ## Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there more exits performed during certain VM operations? Approximately how many exits does a full VM boot entail?
 
-### Output file -> 
+### Output file -> (https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6039.jpg  and https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6041.jpg)
 
 #### 1.Not sure, the number of exits increase in a very slightly rate. Hard to detect whether it is stable or not. But these Exit may be performed in operations:  EPT_VIOLATION, MSR_WRITE or page fault.
-#### 2. Approximately 750000 exits for a full VM boot entail.
+#### 2. Approximately 7500000 exits for a full VM boot entail.
 
 
 
