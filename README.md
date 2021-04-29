@@ -38,9 +38,10 @@
 ## Test file
 #### 1. test in command line -> cpuid -l 0x4FFFFFFF
 #### or 2. test by test file
+#### Ouput: CPUID 0x4fffffff, number of exits: 5829019, Cycles spent in exit:  1629102911
 
 ## Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there more exits performed during certain VM operations? Approximately how many exits does a full VM boot entail?
 
-## 1.No, the number of exits increase not in stable rate. I/O to disk, page fault exits or exception may perform I guess.
-## 2. Approximately 1500000 exits for a full VM boot entail.
+## 1.No, the number of exits increase not in stable rate. Exit reason like EPT_VIOLATION, MSR_WRITE or page fault exits may perform.
+## 2. Approximately 1000000 exits for a full VM boot entail.
 
