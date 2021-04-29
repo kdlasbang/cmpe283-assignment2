@@ -15,6 +15,10 @@
 #### 7.CONFIG_SYSTEM_TRUSTED_KEY, then comment it. Otherwise, there is a error in build the kernal
 ### build the kernal with this command->
 #### 8.make -j 3 modules && make -j 3 && sudo make modules_install && sudo make install (3 cpu)(approximately need to wait 3 hrs)
+#### 9. verify version -> 
+#### cmpe283@cmpe283-virtual-machine:~$ uname -a
+#### Linux cmpe283-virtual-machine 5.12.0-rc7+ #1 SMP Tue Apr 27 22:31:53 PDT 2021 x86_64 x86_64 x86_64 GNU/Linux
+ 
 
 ## Change to source code->
 #### 1.vi linux/arch/x86/kvm/cpuid.c
@@ -37,6 +41,6 @@
 
 ## Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there more exits performed during certain VM operations? Approximately how many exits does a full VM boot entail?
 
-## 1.Yes, the number of exits increase in stable rate.
+## 1.No, the number of exits increase not in stable rate. I/O to disk, page fault exits or exception may perform I guess.
 ## 2. Approximately 1500000 exits for a full VM boot entail.
 
