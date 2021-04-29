@@ -41,7 +41,7 @@
 
 ## Test file (inside nested VM)
 #### 1. In command line, view the exit register -> cpuid -l 0x4FFFFFFF
-![](images/IMG_6039.jpg)
+![image1](https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6039.jpg)
 #### 2. View exit counter and time -> gcc test.c    -> ./a.out
 
 
