@@ -23,25 +23,40 @@
 ## Change to source code->
 #### 1.vi linux/arch/x86/kvm/cpuid.c
 ####     Initial exit_counters and exit_time at the top. Then in the function kvm_emulate_cpuid()->
-####  if(eax == 0x4FFFFFFF) then return total number of exits in %eax, high 32bits of total time spent in exit of %ebx, high 32 bits of total time spent in exit in %ecx.
+####  if(eax == 0x4FFFFFFF) then return total number of exits in %eax, high 32bits of total time spent in exit of %ebx, high 32 bits of total time spent in exit in %ecx. (we get hint from the assignment 1, how to get high32bits and low 32bits from a 64 bits data.)
 #### 2. vi linux/arch/x86/kvm/vmx/vmx.c
 ####   Initialize exit_counters and exit_time. Then find the function -> vmx_handle_exit()
-####     count the time for each exit execute
-#### 3. rebuild again, just view the Build the kernal steps above
+####     count the time for each exit execute(Please view the video 5 1:35:00, professor gives lots of hint to do this part)
+#### 3. rebuild again, just view the Build the kernal steps above(use this two command-> "sudo bash" -> "make -j 3 modules && make -j 3 && sudo make modules_install && sudo make install")
 
 ## Install nested VM
-#### 1. cat /sys/module/kvm_intel/parameters/nested
-#### 2. sudo apt install libvirt-clients libvirt-daemon-system ovmf virt-manager qemu-system-x86
-#### 3. setup nested VM and Ubuntu 20.0.4 ISO
-#### 4. sudo apt-get install cpuid
+#### 1. Please follow the instruction here: https://help.ubuntu.com/community/KVM/Installation
+#### 2. Make sure whether your hardware support VM. If so, go to next step
+#### 3. Install Cosmic(18.10) or later package -> sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+#### 4. Installed the virt-manager-> sudo apt-get install virt-manager
+#### 5. To check whether install successfully -> virt-manager
+#### 6. Go to ubuntu official website, download ISO, then use virt-manager to open ISO and install it.
+#### 7. Open nested VM terminal -> sudo apt-get install cpuid
+#### 8. -> sudo apt-get install make
 
-## Test file
-#### 1. test in command line -> cpuid -l 0x4FFFFFFF
-#### or 2. test by test file
-#### Ouput: CPUID 0x4fffffff, number of exits: 5829019, Cycles spent in exit:  1629102911
+## Test file (inside nested VM)
+#### 1. In command line, view the exit register -> cpuid -l 0x4FFFFFFF
+#### 2. View exit counter and time -> gcc test.c    -> ./a.out
+
 
 ## Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there more exits performed during certain VM operations? Approximately how many exits does a full VM boot entail?
 
-## 1.No, the number of exits increase not in stable rate. Exit reason like EPT_VIOLATION, MSR_WRITE or page fault exits may perform.
-## 2. Approximately 1000000 exits for a full VM boot entail.
+### Output file -> 
 
+#### 1.Not sure, the number of exits increase in a very slightly rate. Hard to detect whether it is stable or not. But these Exit may be performed in operations:  EPT_VIOLATION, MSR_WRITE or page fault.
+#### 2. Approximately 750000 exits for a full VM boot entail.
+
+
+
+
+## Reference:
+#### Thanks for the instruction from https://github.com/ParvathiRPai/CMPE283-Assignment2  . It gives lots of help in Setup KVM part and testing part. The test file here is the test file from ParvathiRPai's github.
+#### https://help.ubuntu.com/community/KVM/Installation
+#### https://elixir.bootlin.com/linux/v5.10-rc2/source/include/asm-generic/atomic-instrumented.h
+#### https://www.kernel.org/doc/html/v4.12/core-api/atomic_ops.html
+#### https://lwn.net/Kernel/
