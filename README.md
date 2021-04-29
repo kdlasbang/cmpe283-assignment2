@@ -50,8 +50,8 @@
 
 ### Output file -> (https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6039.jpg  and https://github.com/kdlasbang/cmpe283-assignment2/blob/main/IMG_6041.jpg)
 
-#### 1.Not sure, the number of exits increase in a very slightly rate. Hard to detect whether it is stable or not. But these Exit may be performed in operations:  EPT_VIOLATION, MSR_WRITE or page fault.
-#### 2. Approximately 7500000 exits for a full VM boot entail.
+#### 1.Not sure, the number of exits increase in a very slightly rate. Hard to detect whether it is stable or not. But these Exit also could be performed in operations:  EPT_VIOLATION, MSR_WRITE or page fault.
+#### 2. Approximately 670000 exits for a full VM boot entail.
 
 
 
